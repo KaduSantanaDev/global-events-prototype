@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Events.API.Data;
-using Events.API.Models;
+using Events.Persistence;
+using Events.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -13,8 +13,8 @@ namespace Events.API.Controllers
   [Route("api/[controller]")]
   public class EventController : ControllerBase
   {
-   private readonly DataContext _context;
-   public EventController(DataContext context)
+   private readonly EventContext _context;
+   public EventController(EventContext context)
    {
       _context = context;
 
@@ -29,7 +29,7 @@ namespace Events.API.Controllers
    [HttpGet("{id}")]
    public Event Get(int id)
    {
-      return _context.Events.FirstOrDefault(e => e.EventId == id);
+      return _context.Events.FirstOrDefault(e => e.Id == id);
    }
 
    [HttpPost]
