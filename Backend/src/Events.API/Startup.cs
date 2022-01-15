@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Events.Persistence;
 using Events.Persistence.Context;
+using Events.Application.Interfaces;
+using Events.Application;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +17,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Events.Persistence.Interfaces;
+using Events.Persistence;
 
 namespace Events.API
 {
@@ -32,7 +37,12 @@ namespace Events.API
             services.AddDbContext<EventContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(
+                x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+            services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IGeneralProtocols, GeneralPersistence>();
+            services.AddScoped<IEventProtocols, EventPersistence>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Events.API", Version = "v1" });

@@ -17,6 +17,21 @@ namespace Events.Persistence.Context
         
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<PanelistEvent>().HasKey(PE => new {PE.EventId, PE.PanelistId});
+            
+            modelBuilder.Entity<Event>()
+            .HasMany(e => e.SocialMedias)
+            .WithOne(sm => sm.Event)
+            .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Event>()
+            .HasMany(e => e.Batches)
+            .WithOne(sm => sm.Event)
+            .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Panelist>()
+            .HasMany(e => e.SocialMedias)
+            .WithOne(sm => sm.Panelist)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Events.Persistence
         public PanelistPersistence(EventContext context)
         {
             _context = context;
-            
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;            
         }
         public async Task<Panelist> GetPanelistByIdAsync(int panelistId, bool includeEvents = false)
         {

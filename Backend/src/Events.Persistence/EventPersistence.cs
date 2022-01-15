@@ -14,6 +14,7 @@ namespace Events.Persistence
         public EventPersistence(EventContext context)
         {
             _context = context;
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 
         }
         
