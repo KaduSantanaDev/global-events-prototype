@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Events.Persistence;
 using Events.Persistence.Context;
 using Events.Application.Interfaces;
 using Events.Application;
@@ -40,6 +39,7 @@ namespace Events.API
             services.AddControllers().AddNewtonsoftJson(
                 x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+            services.AddCors();
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<IGeneralProtocols, GeneralPersistence>();
             services.AddScoped<IEventProtocols, EventPersistence>();
@@ -64,6 +64,8 @@ namespace Events.API
             app.UseRouting();
 
             app.UseAuthorization();
+            
+            app.UseCors(c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {
