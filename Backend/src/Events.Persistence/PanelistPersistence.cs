@@ -2,7 +2,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Events.Domain;
 using Microsoft.EntityFrameworkCore;
-using Events.Persistence.Protocols;
+using Events.Persistence.Interfaces;
+using Events.Persistence.Context;
 
 namespace Events.Persistence
 {

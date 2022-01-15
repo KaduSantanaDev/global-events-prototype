@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Events.Domain;
 
-namespace Events.Persistence.Protocols
+namespace Events.Persistence.Interfaces
 {
     public interface IGeneralProtocols
     {

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
-using Events.Persistence.Protocols;
+using Events.Persistence.Context;
+using Events.Persistence.Interfaces;
 
 namespace Events.Persistence
 {

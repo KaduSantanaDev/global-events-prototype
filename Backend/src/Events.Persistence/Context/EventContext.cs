@@ -1,7 +1,7 @@
 using Events.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Events.Persistence
+namespace Events.Persistence.Context
 {
     public class EventContext : DbContext
     {

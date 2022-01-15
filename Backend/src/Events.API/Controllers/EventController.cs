@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Events.Persistence;
 using Events.Domain;
+using Events.Persistence.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
