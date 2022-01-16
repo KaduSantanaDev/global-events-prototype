@@ -36,6 +36,7 @@ export class EventsComponent implements OnInit {
 
   ngOnInit() {
     this.getEventos()
+    console.log(this.events.batches.id)
   }
 
   changeImgState() {
