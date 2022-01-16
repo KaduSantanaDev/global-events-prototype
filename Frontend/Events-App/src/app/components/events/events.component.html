@@ -29,8 +29,8 @@
       <th>Local</th>
       <th>Data</th>
       <th>Lotação</th>
-      <th>Lote</th>
       <th>Opções</th>
+      <th>Lote</th>
     </tr>
   </thead>
   <tbody *ngIf="events && events.length">
@@ -47,17 +47,17 @@
       <td>{{event.local}}</td>
       <td>{{event.dateEvent | DateFormat}}</td>
       <td>{{event.numPeople}}</td>
-      <td>{{event.batches[0].name}}</td>
       <td>
-        <button type="button" class="btn btn-primary btn-sm mr-2">
+        <button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar">
           <i class="fa fa-edit"></i>
           Editar
         </button>
-        <button type="button" class="btn btn-danger btn-sm mr-2">
+        <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir">
           <i class="fa fa-trash"></i>
-          Excluir
+           Excluir
         </button>
       </td>
+      <td>{{event.batches[0].name | uppercase}}</td>
     </tr>
   </tbody>
   <tfoot *ngIf="!events.length">
