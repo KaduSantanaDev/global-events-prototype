@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventsComponent } from './components/events/events.component';
 import { PanelistsComponent } from './components/panelists/panelists.component';
-import { NavComponent } from './components/nav/nav.component';
+import { NavComponent } from './shared/nav/nav.component';
 
 import { ModalModule } from 'ngx-bootstrap/modal'
 
