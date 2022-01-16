@@ -5,9 +5,9 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EventsComponent } from './events/events.component';
-import { PanelistsComponent } from './panelists/panelists.component';
-import { NavComponent } from './nav/nav.component';
+import { EventsComponent } from './components/events/events.component';
+import { PanelistsComponent } from './components/panelists/panelists.component';
+import { NavComponent } from './components/nav/nav.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseModule } from 'ngx-bootstrap/collapse'
