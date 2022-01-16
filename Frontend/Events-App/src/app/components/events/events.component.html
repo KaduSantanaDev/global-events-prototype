@@ -1,5 +1,4 @@
-<h2>Eventos</h2>
-<hr>
+<app-title></app-title>
 
 <div class="form-inline">
   <div class="form-group mp-2">
@@ -46,18 +45,18 @@
       <td>{{event.theme}}</td>
       <td>{{event.local}}</td>
       <td>{{event.dateEvent | DateFormat}}</td>
-      <td>{{event.numPeople}}</td>
+      <td>{{event.numPeople}}</td>–>
       <td>
         <button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar">
           <i class="fa fa-edit"></i>
           Editar
         </button>
-        <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir">
+        <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir" (click)="openModal(template)">
           <i class="fa fa-trash"></i>
            Excluir
         </button>
       </td>
-      <td>{{event.batches[0].name | uppercase}}</td>
+      <!--{{event.batches[0].name | uppercase}}</td> --><td>
     </tr>
   </tbody>
   <tfoot *ngIf="!events.length">
@@ -68,3 +67,11 @@
     </tr>
   </tfoot>
 </table>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Quer mesmo excluir o evento?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
+  </div>
+</ng-template>
