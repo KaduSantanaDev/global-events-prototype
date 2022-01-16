@@ -1,9 +1,61 @@
-<h1>Eventos do Componente</h1>
+<h2>Eventos</h2>
+<hr>
 
-
-<div *ngFor="let event of events;">
-  <p><b>Tema:</b> {{event.theme}}</p>
-  <p><b>Local:</b> {{event.local}}</p>
-  <hr>
+<div class="form-inline">
+  <div class="form-group mp-2">
+    <input type="text"
+      class="for control mr-2"
+      placeholder="buscar"
+      [(ngModel)]="listFilter"
+    >
+    <button class="btn btn-outline-success">Buscar</button>
+  </div>
 </div>
+
+
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <h3>Filtro: {{listFilter}}</h3>
+    <tr>
+      <th>
+        <button class="btn btn-outline-light btn-sm" (click)="changeImgState()">
+          {{!showImg ? 'mostrar' : 'ocultar'}}
+        </button>
+      </th>
+      <th>#</th>
+      <th>Tema</th>
+      <th>Local</th>
+      <th>Data</th>
+      <th>Lotação</th>
+      <th>Lote</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="events && events.length">
+    <tr *ngFor="let event of filteredEvents">
+      <td>
+        <img [collapse]="!showImg" src="/assets/{{event.urlImage}}"
+          [isAnimated]="true"
+          [style.width.px]="150"
+          [style.margin.px]="2"
+        >
+      </td>
+      <td>{{event.id}}</td>
+      <td>{{event.theme}}</td>
+      <td>{{event.local}}</td>
+      <td>{{event.dateEvent}}</td>
+      <td>{{event.numPeople}}</td>
+      <td>{{event.local}}</td>
+      <td></td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!events.length">
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4>Nenhum Evento encontrado</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
 
