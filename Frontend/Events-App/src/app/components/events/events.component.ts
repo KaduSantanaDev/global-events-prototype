@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { Event } from './../../model/Event';
+import { EventService } from './../../services/event.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,21 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventsComponent implements OnInit {
 
-  public events: any = []
-  public filteredEvents: any = []
+  public events: Event[] = []
+  public filteredEvents: Event[] = []
   showImg = true
-  private _listFilter = ''
+  private _listFilter: string = ''
 
   public get listFilter() {
     return this._listFilter
-  }
-
-  filterEvents(filterBy: string): any {
-    filterBy = filterBy.toLowerCase()
-    return this.events.filter(
-      (e: any) => e.theme.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
-      e.local.toLocaleLowerCase().indexOf(filterBy) !== -1
-    )
   }
 
   public set listFilter(value: string) {
@@ -30,23 +23,28 @@ export class EventsComponent implements OnInit {
     this.filteredEvents = this.listFilter ? this.filterEvents(this.listFilter) : this.events
   }
 
+  filterEvents(filterBy: string): Event[] {
+    filterBy = filterBy.toLowerCase()
+    return this.events.filter(
+      (e: any) => e.theme.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
+      e.local.toLocaleLowerCase().indexOf(filterBy) !== -1
+    )
+  }
 
-
-  constructor(private http: HttpClient) { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit() {
     this.getEventos()
-    console.log(this.events.batches.id)
   }
 
-  changeImgState() {
+  changeImgState(): void {
     this.showImg = !this.showImg
   }
 
   public getEventos(): void {
-    this.http.get('https://localhost:5001/api/Event').subscribe(
-      response => {
-        this.events = response
+    this.eventService.getEvents().subscribe(
+      (_events: Event[]) => {
+        this.events = _events
         this.filteredEvents = this.events
       },
       error => console.log(error)

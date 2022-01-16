@@ -5,7 +5,7 @@ import { SocialMedia } from "./SocialMedia";
 export interface Event {
   id: number
   local: string
-  dateTime?: Date
+  dateEvent?: Date
   theme: string
   numPeople: number
   urlImage: string
