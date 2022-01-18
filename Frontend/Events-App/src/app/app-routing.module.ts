@@ -1,3 +1,5 @@
+import { EventsListComponent } from './components/events/events-list/events-list.component';
+import { EventsDetailComponent } from './components/events/events-detail/events-detail.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -12,6 +14,11 @@ const routes: Routes = [
   {
     path: 'eventos',
     component: EventsComponent,
+    children: [
+      { path: 'detalhe/:id', component: EventsDetailComponent },
+      { path: 'detalhe', component: EventsDetailComponent },
+      { path: 'lista', component: EventsListComponent },
+    ]
   },
   {
     path: 'dashboard',

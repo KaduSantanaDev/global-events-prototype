@@ -22,6 +22,8 @@ import { FormsModule } from '@angular/forms';
 import { EventService } from './services/event.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { EventsDetailComponent } from './components/events/events-detail/events-detail.component';
+import { EventsListComponent } from './components/events/events-list/events-list.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { PerfilComponent } from './components/perfil/perfil.component';
       TitleComponent,
       ContactsComponent,
       DashboardComponent,
-      PerfilComponent
+      PerfilComponent,
+      EventsDetailComponent,
+      EventsListComponent
    ],
   imports: [
     BrowserModule,
