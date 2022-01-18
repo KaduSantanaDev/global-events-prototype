@@ -9,103 +9,105 @@ using Events.Persistence.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
+using Events.Application.DTOs;
 
 namespace Events.API.Controllers
 {
-   [ApiController]
-   [Route("api/[controller]")]
-   public class EventController : ControllerBase
-   {
-      private readonly IEventService _eventService;
-      public EventController(IEventService eventService)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class EventController : ControllerBase
+    {
+        private readonly IEventService _eventService;
+        public EventController(IEventService eventService)
         {
-         _eventService = eventService;
+            _eventService = eventService;
 
         }
 
-      [HttpGet]
-      public async Task<IActionResult> Get()
-      {
-         try
-         {
-            var events = await _eventService.GetEventsAsync(true);
-            if(events == null) return NotFound("Events not found");
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            try
+            {
+                var events = await _eventService.GetEventsAsync(true);
+                if (events == null) return NoContent();
 
-            return Ok(events);
-         }
-         catch (Exception e)
-         {
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Internal Server Error: {e.Message}"); 
-         }
-      }
+                
+
+                return Ok(events);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Internal Server Error. Error: {e.Message}");
+            }
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                var getEventId = await _eventService.GetEventByIdAsync(id, true);
-                if(getEventId == null) return NotFound("Event not found");
+                var getEvent = await _eventService.GetEventByIdAsync(id, true);
+                if (getEvent == null) return NoContent();
 
-                return Ok(getEventId);
+                return Ok(getEvent);
             }
             catch (Exception e)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Internal Server Error: {e.Message}"); 
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Internal Server Error. Error: {e.Message}");
             }
         }
 
-        [HttpGet("{theme}/theme")]
-        public async Task<IActionResult> GetByTheme(string theme)
+        [HttpGet("{tema}/tema")]
+        public async Task<IActionResult> GetByTheme(string tema)
         {
             try
             {
-                var getEventId = await _eventService.GetEventsByThemeAsync(theme, true);
-                if(getEventId == null) return NotFound("Events not found");
+                var getEvent = await _eventService.GetEventsByThemeAsync(tema, true);
+                if (getEvent == null) return NoContent();
 
-                return Ok(getEventId);
+                return Ok(getEvent);
             }
             catch (Exception e)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Internal Server Error: {e.Message}"); 
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Internal Server Error. Error. Erro: {e.Message}");
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Event model)
+        public async Task<IActionResult> Post(EventDto model)
         {
             try
             {
-                var newEvent = await _eventService.AddEvents(model);
-                if(newEvent == null) return BadRequest("Error on add an event");
+                var newEvento = await _eventService.AddEvents(model);
+                if (newEvento == null) return NoContent();
 
-                return Ok(newEvent);
+                return Ok(newEvento);
             }
             catch (Exception e)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError
-                , $"Internal Server Error: {e.Message}"); 
-                
-                
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Internal Server Error. Error: {e.Message}");
             }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Event model)
+        public async Task<IActionResult> Put(int id, EventDto model)
         {
             try
             {
-                var newEvent = await _eventService.UpdateEvent(id, model);
-                if(newEvent == null) return BadRequest("Error on update an event");
+                var updatedEvent = await _eventService.UpdateEvent(id, model);
+                if (updatedEvent == null) return NoContent();
 
-                return Ok(newEvent);
+                return Ok(updatedEvent);
             }
             catch (Exception e)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError
-                , $"Internal Server Error: {e.Message}"); 
-                
-                
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Error on updating an event. Error: {e.Message}");
             }
         }
 
@@ -114,16 +116,17 @@ namespace Events.API.Controllers
         {
             try
             {
-                return await _eventService.DeleteEvent(id) ? 
-                Ok("Deleted") : 
-                BadRequest("Error on delete an event");
+                var getEvent = await _eventService.GetEventByIdAsync(id, true);
+                if (getEvent == null) return NoContent();
+
+                return await _eventService.DeleteEvent(id) ?
+                       Ok("Deleted") :
+                       throw new Exception("Not Especified Error");
             }
             catch (Exception e)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError
-                , $"Internal Server Error: {e.Message}"); 
-                
-                
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Error on delete. Error: {e.Message}");
             }
         }
     }

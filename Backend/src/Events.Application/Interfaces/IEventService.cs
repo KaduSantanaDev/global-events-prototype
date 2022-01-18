@@ -1,16 +1,16 @@
 using System.Threading.Tasks;
-using Events.Domain;
+using Events.Application.DTOs;
 
 namespace Events.Application.Interfaces
 {
     public interface IEventService
     {
-        Task<Event> AddEvents(Event model);
-        Task<Event> UpdateEvent(int eventId, Event model);
+        Task<EventDto> AddEvents(EventDto model);
+        Task<EventDto> UpdateEvent(int eventId, EventDto model);
         Task<bool> DeleteEvent(int eventId);
         
-        Task<Event[]> GetEventsByThemeAsync(string theme, bool includePanelist = false);
-        Task<Event[]> GetEventsAsync(bool includePanelist = false);
-        Task<Event> GetEventByIdAsync(int eventId, bool includePanelist = false);
+        Task<EventDto[]> GetEventsByThemeAsync(string theme, bool includePanelist = false);
+        Task<EventDto[]> GetEventsAsync(bool includePanelist = false);
+        Task<EventDto> GetEventByIdAsync(int eventId, bool includePanelist = false);
     }
 }

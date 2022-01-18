@@ -1,23 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Events.Persistence.Context;
 using Events.Application.Interfaces;
 using Events.Application;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Events.Persistence.Interfaces;
 using Events.Persistence;
+using AutoMapper;
+using System;
 
 namespace Events.API
 {
@@ -39,6 +33,7 @@ namespace Events.API
             services.AddControllers().AddNewtonsoftJson(
                 x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddCors();
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<IGeneralProtocols, GeneralPersistence>();
